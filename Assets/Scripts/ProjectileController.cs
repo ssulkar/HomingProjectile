@@ -42,14 +42,15 @@ public class ProjectileController : MonoBehaviour
             }
         }
         else
-        { // Completely pacify the projectile
-            prompt.SetActive(false); // Turn off prompt if the user successfully dodged
-            transform.gameObject.tag = "RogueProjectile"; // Replace Enemy tag to indicate that the missile is not hostile
-            Physics.IgnoreCollision(playerController.GetComponent<Collider>(),
-                GetComponent<Collider>(), true); // Forgive player for colliding with the projectile if they dodged already
+        {   
             transform.position += transform.forward * Time.deltaTime * speed; // Continue the projectile on its original path prior to dodge
             if (!primedForSelfDestruction)
             {
+                // Completely pacify the projectile
+                prompt.SetActive(false); // Turn off prompt if the user successfully dodged
+                transform.gameObject.tag = "RogueProjectile"; // Replace Enemy tag to indicate that the missile is not hostile
+                Physics.IgnoreCollision(playerController.GetComponent<Collider>(),
+                    GetComponent<Collider>(), true); // Forgive player for colliding with the projectile if they dodged already
                 Destroy(gameObject, 5); // Begin timer to destroy the projectile
                 primedForSelfDestruction = true;
             }
