@@ -41,7 +41,8 @@ public class ProjectileController : MonoBehaviour
                 prompt.SetActive(false); // Turn off prompt if the user manages to get out of sweetspot
             }
         }
-        else { // Completely pacify the projectile
+        else
+        { // Completely pacify the projectile
             prompt.SetActive(false); // Turn off prompt if the user successfully dodged
             transform.gameObject.tag = "RogueProjectile"; // Replace Enemy tag to indicate that the missile is not hostile
             Physics.IgnoreCollision(playerController.GetComponent<Collider>(),
