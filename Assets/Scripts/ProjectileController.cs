@@ -62,7 +62,6 @@ public class ProjectileController : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(direction); // Make the projectile face the player
         Vector3 movementRequired = speed * direction * Time.deltaTime; // Multiply the direction with custom coefficients
         transform.position += movementRequired; // Increment the current position with the movement required
-
     }
     
     bool IsInSweetSpot()
