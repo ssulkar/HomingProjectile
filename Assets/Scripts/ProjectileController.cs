@@ -7,7 +7,6 @@ public class ProjectileController : MonoBehaviour
     float speed = 2.5f;
     GameObject prompt;
     Transform target;
-    Rigidbody rb;
     bool isLockedOn = true;
     PlayerController playerController;
     float sweetSpotUpper = 2f;
@@ -18,7 +17,6 @@ public class ProjectileController : MonoBehaviour
     {
         prompt = GameObject.FindGameObjectsWithTag("MainCamera")[0].transform.GetChild(0).gameObject;
         target = GameObject.FindGameObjectsWithTag("Player")[0].transform;
-        rb = GetComponent<Rigidbody>();
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
     }
 
@@ -42,8 +40,9 @@ public class ProjectileController : MonoBehaviour
             }
         }
         else
-        {   
-            transform.position += transform.forward * Time.deltaTime * speed; // Continue the projectile on its original path prior to dodge
+        {
+            transform.position += speed * transform.forward * Time.deltaTime; // Continue the projectile on its original path prior to dodge
+            
             if (!primedForSelfDestruction)
             {
                 // Completely pacify the projectile
@@ -62,7 +61,8 @@ public class ProjectileController : MonoBehaviour
         Vector3 direction = (target.transform.position - transform.position).normalized; // Get the normalized direction of the projectile
         transform.rotation = Quaternion.LookRotation(direction); // Make the projectile face the player
         Vector3 movementRequired = speed * direction * Time.deltaTime; // Multiply the direction with custom coefficients
-        rb.MovePosition(transform.position + movementRequired); // Increment the current position with the movement required
+        transform.position += movementRequired; // Increment the current position with the movement required
+
     }
     
     bool IsInSweetSpot()
